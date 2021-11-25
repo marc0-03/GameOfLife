@@ -18,8 +18,8 @@ public class Controller implements Runnable{
     public Controller() {
         int width = 900;
         int height = 900;
-        int cellWidth = 450;
-        int cellHeight = 450;
+        int cellWidth = 180;
+        int cellHeight = 180;
         view = new View(width, height);
         model = new Model(cellWidth, cellHeight);
         view.setCellSize(model.getCellTable());
@@ -77,8 +77,8 @@ public class Controller implements Runnable{
         @Override
         public void keyTyped(KeyEvent e) {
             if (e.getKeyChar() == 'a' || e.getKeyChar() == 'A') {
-                ArrayList<Integer> x = new ArrayList<Integer>();
-                ArrayList<Integer> y = new ArrayList<Integer>();
+                ArrayList<Integer> x = new ArrayList<>();
+                ArrayList<Integer> y = new ArrayList<>();
 
                 for (int ww = 0; ww<model.getCellTable().length; ww++) {
                     for (int hh = 0; hh<model.getCellTable()[0].length; hh++) {
@@ -95,8 +95,42 @@ public class Controller implements Runnable{
 
                 model.update(model.getCellTable());
 
-            }
-            if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D') { }
+            } //Does "G" and updates
+            if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D') {
+                ArrayList<Integer> x = new ArrayList<>();
+                ArrayList<Integer> y = new ArrayList<>();
+
+                for (int ww = 0; ww<model.getCellTable().length; ww++) {
+                    for (int hh = 0; hh<model.getCellTable()[0].length; hh++) {
+                        if (!model.getCellTable()[ww][hh].isAlive() && model.checkAround(ww,hh,model.getCellTable())==2) {
+                            x.add(ww);
+                            y.add(hh);
+                        }
+                    }
+                }
+
+                for (int i = 0; i<y.size(); i++) {
+                    model.getCellTable()[x.get(i)][y.get(i)].setAlive(true);
+                }
+            } //if its dead and has 2 around it then become alive
+            if (e.getKeyChar() == 'w' || e.getKeyChar() == 'W') {
+                ArrayList<Integer> x = new ArrayList<>();
+                ArrayList<Integer> y = new ArrayList<>();
+
+                for (int ww = 0; ww<model.getCellTable().length; ww++) {
+                    for (int hh = 0; hh<model.getCellTable()[0].length; hh++) {
+                        if (!model.getCellTable()[ww][hh].isAlive() && (model.checkAround(ww,hh,model.getCellTable())==2 || model.checkAround(ww,hh,model.getCellTable())==1)) {
+                            x.add(ww);
+                            y.add(hh);
+                        }
+                    }
+                }
+
+                for (int i = 0; i<y.size(); i++) {
+                    model.getCellTable()[x.get(i)][y.get(i)].setAlive(true);
+                }
+            } //if its dead and has 2 or 1 around it
+            if (e.getKeyChar() == 's' || e.getKeyChar() == 'S') { }
             if (e.getKeyChar() == 'r' || e.getKeyChar() == 'R') {
                 for (int ww = 0; ww<model.getCellTable().length; ww++) {
                     for (int hh = 0; hh<model.getCellTable()[0].length; hh++) {
@@ -109,8 +143,8 @@ public class Controller implements Runnable{
                 }
             } //Randomize CellTable 50/50 Alive And Dead.
             if (e.getKeyChar() == 'f' || e.getKeyChar() == 'F') {
-                ArrayList<Integer> x = new ArrayList<Integer>();
-                ArrayList<Integer> y = new ArrayList<Integer>();
+                ArrayList<Integer> x = new ArrayList<>();
+                ArrayList<Integer> y = new ArrayList<>();
 
                 for (int ww = 0; ww<model.getCellTable().length; ww++) {
                     for (int hh = 0; hh<model.getCellTable()[0].length; hh++) {
@@ -127,8 +161,8 @@ public class Controller implements Runnable{
 
             } //Turns 100% Of Dead Cells Around Alive Cells, Alive Again.
             if (e.getKeyChar() == 'g' || e.getKeyChar() == 'G') {
-                ArrayList<Integer> x = new ArrayList<Integer>();
-                ArrayList<Integer> y = new ArrayList<Integer>();
+                ArrayList<Integer> x = new ArrayList<>();
+                ArrayList<Integer> y = new ArrayList<>();
 
                 for (int ww = 0; ww<model.getCellTable().length; ww++) {
                     for (int hh = 0; hh<model.getCellTable()[0].length; hh++) {
