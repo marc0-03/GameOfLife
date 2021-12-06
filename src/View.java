@@ -27,15 +27,18 @@ public class View extends Canvas {
         }
         Graphics g = bs.getDrawGraphics();
 
+
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,WIDTH,HEIGHT);
+
+
+        g.setColor(Color.white);
+        //g.setColor(new Color((int) (Math.random()*255),(int) (Math.random()*255),(int) (Math.random()*255)));
         for (int w = 0; w<Cells.length; w++) {
             for (int h = 0; h<Cells[0].length; h++) {
                 if (Cells[w][h].isAlive()) {
-                    //g.setColor(new Color((int) (Math.random()*255),(int) (Math.random()*255),(int) (Math.random()*255)));
-                    g.setColor(Color.white);
-                } else {
-                    g.setColor(Color.BLACK);
+                    g.fillRect(w * CellWidth, h * CellHeight, CellWidth, CellHeight);
                 }
-                g.fillRect(w * CellWidth, h * CellHeight, CellWidth, CellHeight);
             }
         }
 

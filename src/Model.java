@@ -13,10 +13,9 @@ public class Model {
 
 
     public void update(Cell[][] cellTable) {
-        ArrayList<Integer> x = new ArrayList<Integer>();
-        ArrayList<Integer> y = new ArrayList<Integer>();
+        ArrayList<Integer> x = new ArrayList<>();
+        ArrayList<Integer> y = new ArrayList<>();
         int around;
-
 
         for (int w = 0; w< cellTable.length; w++) {
             for (int h = 0; h < cellTable[0].length; h++) {
