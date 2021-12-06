@@ -1,7 +1,8 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 
@@ -18,18 +19,19 @@ public class Controller implements Runnable{
     public Controller() {
         int width = 900;
         int height = 900;
-        int cellWidth = 180;
-        int cellHeight = 180;
+        int cellWidth = 450;
+        int cellHeight = 450;
         view = new View(width, height);
         model = new Model(cellWidth, cellHeight);
         view.setCellSize(model.getCellTable());
 
-        JFrame frame = new JFrame("My Nuts");
+        JFrame frame = new JFrame("Game Of Life");
         frame.setSize(1200,800);
         frame.add(view);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         view.addKeyListener(new KL());
+        view.addMouseListener(new ML());
         frame.setVisible(true);
     }
 
@@ -72,6 +74,26 @@ public class Controller implements Runnable{
         }
     }
 
+    private class ML implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent mouseEvent) {
+            float x = (mouseEvent.getX()/(view.getWidth()+0f))*model.getCellTable().length;
+            float y = (mouseEvent.getY()/(view.getHeight()+0f))*model.getCellTable()[0].length;
+            model.getCellTable()[(int) x][(int) y].changeAlive();
+        }
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+        }
+        @Override
+        public void mouseReleased(MouseEvent mouseEvent) {
+        }
+        @Override
+        public void mouseEntered(MouseEvent mouseEvent) {
+        }
+        @Override
+        public void mouseExited(MouseEvent mouseEvent) {
+        }
+    }
 
     private class KL implements KeyListener {
         @Override
@@ -186,15 +208,15 @@ public class Controller implements Runnable{
                 }
             } //Clear CellTable Of Alive Cells.
             if (e.getKeyChar() == 'p' || e.getKeyChar() == 'P') {
-                if (pause) {
-                    pause=false;
-                } else {
-                    pause = true;
-                }
+                pause = !pause;
             } //Pause Button.
             if (e.getKeyChar() == 'q' || e.getKeyChar() == 'Q') {
                 model.update(model.getCellTable());
             } //Manual Update.
+
+            if (e.getKeyChar() == ' ') {
+
+            }
         }
         @Override
         public void keyPressed(KeyEvent e) {
