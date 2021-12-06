@@ -1,7 +1,5 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 public class Cell {
-    boolean Alive;
+    private boolean Alive;
 
     public Cell(){
         if (Math.random() > 0.5){
@@ -9,9 +7,6 @@ public class Cell {
         }else{
             Alive=true;
         }
-    }
-    public Cell(Boolean Alive){
-        this.Alive = Alive;
     }
 
     public boolean isAlive() {
@@ -23,10 +18,6 @@ public class Cell {
     }
 
     public void changeAlive() {
-        if (Alive){
-            Alive=false;
-        } else {
-            Alive=true;
-        }
+        Alive=!Alive;
     }
 }
